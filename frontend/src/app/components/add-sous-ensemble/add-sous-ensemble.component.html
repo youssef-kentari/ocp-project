@@ -1,0 +1,157 @@
+<div class="container py-4">
+  <div class="form-wrapper">
+    <h2 class="form-title mb-4">
+      <i class="bi bi-plus-circle me-2"></i>Ajouter un Sous-Ensemble
+    </h2>
+
+    <form [formGroup]="sousEnsembleForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading; else loading">
+      <!-- Section Principale -->
+      <div class="form-section">
+        <h4 class="section-header">Informations principales</h4>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="engin_id" class="form-label required">Engin</label>
+            <select id="engin_id" formControlName="engin_id" class="form-select">
+              <option value="">Sélectionner...</option>
+              <option *ngFor="let engin of engins" [value]="engin">{{ engin }}</option>
+            </select>
+          </div>
+          
+          <div class="col-md-6">
+            <label for="designation" class="form-label required">Désignation</label>
+            <input type="text" id="designation" formControlName="designation" class="form-control">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="type_sous_ensemble" class="form-label">Type</label>
+            <input type="text" id="type_sous_ensemble" formControlName="type_sous_ensemble" class="form-control">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="fournisseur" class="form-label">Fournisseur</label>
+            <input type="text" id="fournisseur" formControlName="fournisseur" class="form-control">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="quantite_installee" class="form-label">Quantité installée</label>
+            <input type="number" id="quantite_installee" formControlName="quantite_installee" class="form-control" min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Stock -->
+      <div class="form-section mt-4">
+        <h4 class="section-header">Stock et disponibilité</h4>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label for="sous_ensemble_relais_disponible" class="form-label">Relais disponible</label>
+            <input type="number" id="sous_ensemble_relais_disponible" formControlName="sous_ensemble_relais_disponible" class="form-control" min="0">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="corps_sous_ensembles_disponibles" class="form-label">Corps disponibles</label>
+            <input type="number" id="corps_sous_ensembles_disponibles" formControlName="corps_sous_ensembles_disponibles" class="form-control" min="0">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="besoin_global_annuel" class="form-label">Besoin annuel</label>
+            <input type="number" id="besoin_global_annuel" formControlName="besoin_global_annuel" class="form-control" min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Révision -->
+      <div class="form-section mt-4">
+        <h4 class="section-header">Gestion des révisions</h4>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label for="sous_ensemble_en_attente_revision" class="form-label">En attente</label>
+            <input type="number" id="sous_ensemble_en_attente_revision" formControlName="sous_ensemble_en_attente_revision" class="form-control" min="0">
+          </div>
+          
+          <div class="col-md-3">
+            <label for="sous_ensemble_encours_revision" class="form-label">En cours</label>
+            <input type="number" id="sous_ensemble_encours_revision" formControlName="sous_ensemble_encours_revision" class="form-control" min="0">
+          </div>
+          
+          <div class="col-md-3">
+            <label for="duree_revision_jours" class="form-label">Durée (jours)</label>
+            <input type="number" id="duree_revision_jours" formControlName="duree_revision_jours" class="form-control" min="0">
+          </div>
+          
+          <div class="col-md-3">
+            <label for="cout_revision_MAD" class="form-label">Coût (MAD)</label>
+            <input type="number" id="cout_revision_MAD" formControlName="cout_revision_MAD" class="form-control" min="0" step="0.01">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Technique -->
+      <div class="form-section mt-4">
+        <h4 class="section-header">Paramètres techniques</h4>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label for="heures_marche_actuel" class="form-label">Heures actuelles</label>
+            <input type="number" id="heures_marche_actuel" formControlName="heures_marche_actuel" class="form-control" min="0">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="heures_marche_cible" class="form-label">Heures cibles</label>
+            <input type="number" id="heures_marche_cible" formControlName="heures_marche_cible" class="form-control" min="0">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="heures_marche_annee" class="form-label">Heures/an</label>
+            <input type="number" id="heures_marche_annee" formControlName="heures_marche_annee" class="form-control" min="0">
+          </div>
+          
+          <div class="col-md-6">
+            <label for="prix_sous_ensemble_neuf_DH" class="form-label">Prix neuf (DH)</label>
+            <input type="number" id="prix_sous_ensemble_neuf_DH" formControlName="prix_sous_ensemble_neuf_DH" class="form-control" min="0" step="0.01">
+          </div>
+          
+          <div class="col-md-6">
+            <label for="nombre_revisions_avant_reforme" class="form-label">Révisions avant réforme</label>
+            <input type="number" id="nombre_revisions_avant_reforme" formControlName="nombre_revisions_avant_reforme" class="form-control" min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Gestion -->
+      <div class="form-section mt-4">
+        <h4 class="section-header">Paramètres de gestion</h4>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="delai_livraison_apres_commande_jours" class="form-label">Délai livraison (jours)</label>
+            <input type="text" id="delai_livraison_apres_commande_jours" formControlName="delai_livraison_apres_commande_jours" class="form-control">
+          </div>
+          
+          <div class="col-md-6">
+            <label for="mode_gestion_actuel" class="form-label">Mode de gestion</label>
+            <input type="text" id="mode_gestion_actuel" formControlName="mode_gestion_actuel" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions mt-5">
+        <button type="button" class="btn btn-outline-secondary me-3" (click)="annuler()">
+          <i class="bi bi-x-lg me-1"></i> Annuler
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || sousEnsembleForm.invalid">
+          <span *ngIf="!isSubmitting"><i class="bi bi-check-lg me-1"></i> Enregistrer </span>
+          <span *ngIf="isSubmitting"><i class="bi bi-arrow-repeat spin me-1"></i> Envoi...</span>
+        </button>
+      </div>
+    </form>
+
+    <ng-template #loading>
+      <div class="loading-indicator">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="mt-3">Chargement des données...</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

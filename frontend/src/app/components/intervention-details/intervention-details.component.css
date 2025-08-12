@@ -1,0 +1,353 @@
+/* ===== STYLES SIMPLES POUR DÉTAILS INTERVENTION ===== */
+
+/* ===== CARTE PRINCIPALE ===== */
+.card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: white;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* ===== EN-TÊTE ===== */
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem 1.25rem;
+  border-radius: 8px 8px 0 0;
+}
+
+.card-header h4 {
+  margin: 0;
+  color: #495057;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* ===== CORPS DE CARTE ===== */
+.card-body {
+  padding: 1.25rem;
+}
+
+/* ===== FORMULAIRES (MODE ÉDITION) ===== */
+.form-label {
+  color: #495057;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  background: white;
+  color: #495057;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
+  outline: none;
+}
+
+.form-control:hover,
+.form-select:hover {
+  border-color: #adb5bd;
+}
+
+/* Textarea spécifique */
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ===== GROUPEMENT DES CHAMPS ===== */
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.row {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
+
+.col-md-6 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* ===== MODE LECTURE ===== */
+.card-body p {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+.card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.card-body p strong {
+  color: #343a40;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 120px;
+  margin-right: 0.5rem;
+}
+
+/* ===== BADGES DE STATUT ===== */
+.badge {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 12px;
+  margin-left: 0.5rem;
+}
+
+.badge.bg-success {
+  background-color: #28a745 !important;
+  color: white;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #212529;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d !important;
+  color: white;
+}
+
+/* ===== BOUTONS D'ACTION ===== */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+  transform: translateY(-1px);
+}
+
+.d-flex.gap-2 {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* ===== MESSAGES ===== */
+.alert {
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  margin-top: 1rem;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+  text-align: center;
+  font-style: italic;
+}
+
+.text-success {
+  color: #28a745 !important;
+  font-weight: 500;
+  margin-top: 1rem;
+  background-color: #d4edda;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid #c3e6cb;
+}
+
+/* ===== AMÉLIORATIONS RESPONSIVES ===== */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .card-header h4 {
+    font-size: 1.1rem;
+  }
+  
+  .row .col-md-6 {
+    margin-bottom: 1rem;
+  }
+  
+  .d-flex.gap-2 {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Mode lecture responsive */
+  .card-body p strong {
+    display: block;
+    min-width: auto;
+    margin-bottom: 0.25rem;
+    margin-right: 0;
+  }
+  
+  .badge {
+    margin-left: 0;
+    margin-top: 0.25rem;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 576px) {
+  .card {
+    border-radius: 6px;
+    margin: 0.5rem;
+  }
+  
+  .card-body {
+    padding: 0.75rem;
+  }
+  
+  .form-control,
+  .form-select {
+    font-size: 0.85rem;
+  }
+  
+  .form-label {
+    font-size: 0.85rem;
+  }
+  
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== ÉTATS ET INTERACTIONS ===== */
+.form-control:disabled,
+.form-select:disabled {
+  background-color: #e9ecef;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.btn:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ===== VALIDATION ET ERREURS ===== */
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: #dc3545;
+}
+
+.form-control.is-valid,
+.form-select.is-valid {
+  border-color: #28a745;
+}
+
+/* ===== ESPACEMENTS UTILITAIRES ===== */
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+/* ===== AMÉLIORATION DE L'EXPÉRIENCE UTILISATEUR ===== */
+.form-control:placeholder-shown {
+  color: #6c757d;
+}
+
+.form-control::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+/* Animation subtile pour les transitions */
+.card {
+  transition: all 0.2s ease;
+}
+
+/* Amélioration de la lisibilité */
+.card-body {
+  line-height: 1.6;
+}
+
+/* Style pour les champs requis */
+.form-label.required::after {
+  content: " *";
+  color: #dc3545;
+}
+
+/* Groupement visuel des champs liés */
+.row.mb-3 {
+  background-color: #f8f9fa;
+  margin: 0 -0.5rem 1rem -0.5rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 4px;
+  border-left: 3px solid #007bff;
+}
+
+/* Effet focus pour l'accessibilité */
+.form-control:focus,
+.form-select:focus {
+  z-index: 2;
+  position: relative;
+}
+
+/* Style pour les informations conditionnelles */
+
+/* Amélioration du contraste */
+.text-muted {
+  color: #6c757d !important;
+}

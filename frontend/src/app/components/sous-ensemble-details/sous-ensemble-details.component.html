@@ -1,0 +1,161 @@
+<div *ngIf="viewMode">
+  <div *ngIf="currentSousEnsemble?.sous_ensemble_id; else noSelection" class="sous-ensemble">
+    
+    <!-- En-tête -->
+    <header class="header">
+      <div>
+        <h3>{{ currentSousEnsemble.designation }}</h3>
+        <small>ID: {{ currentSousEnsemble.sous_ensemble_id }}</small>
+      </div>
+      <span class="engin-badge">Engin #{{ currentSousEnsemble.engin_id }}</span>
+    </header>
+
+    <!-- Informations -->
+    <section class="info-grid">
+      <div class="info-card" *ngFor="let item of [
+        { label: 'Type', value: currentSousEnsemble.type_sous_ensemble },
+        { label: 'Quantité installée', value: currentSousEnsemble.quantite_installee },
+        { label: 'Relais disponibles', value: currentSousEnsemble.sous_ensemble_relais_disponible },
+        { label: 'En révision', value: currentSousEnsemble.sous_ensemble_encours_revision },
+        { label: 'Prix neuf (DH)', value: currentSousEnsemble.prix_sous_ensemble_neuf_DH },
+        { label: 'Coût révision (MAD)', value: currentSousEnsemble.cout_revision_MAD },
+        { label: 'Durée révision', value: currentSousEnsemble.duree_revision_jours ? currentSousEnsemble.duree_revision_jours + ' jours' : '-' },
+        { label: 'Fournisseur', value: currentSousEnsemble.fournisseur },
+        { label: 'Heures marche actuelles', value: currentSousEnsemble.heures_marche_actuel },
+        { label: 'Heures marche cible', value: currentSousEnsemble.heures_marche_cible },
+        { label: 'Délai livraison', value: currentSousEnsemble.delai_livraison_apres_commande_jours ? currentSousEnsemble.delai_livraison_apres_commande_jours + ' jours' : '-' },
+        { label: 'Mode gestion', value: currentSousEnsemble.mode_gestion_actuel }
+      ]">
+        <span class="label">{{ item.label }}</span>
+        <span class="value">{{ item.value || '-' }}</span>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn primary" (click)="updateSousEnsemble()">
+        Modifier
+      </button>
+      <button class="btn danger" (click)="deleteSousEnsemble()">
+        Supprimer
+      </button>
+    </div>
+  </div>
+
+  <!-- Aucun sous-ensemble sélectionné -->
+  <ng-template #noSelection>
+    <div class="empty">
+      <i class="fas fa-info-circle"></i>
+      <p>Sélectionnez un sous-ensemble pour afficher les détails</p>
+    </div>
+  </ng-template>
+</div>
+
+<style>
+.sous-ensemble {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.header small {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.engin-badge {
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.info-card {
+  background: #fafafa;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.label {
+  display: block;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.value {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #333;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn.primary {
+  background: #4f46e5;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #4338ca;
+}
+
+.btn.danger {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn.danger:hover {
+  background: #fecaca;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px;
+  background: #f9fafb;
+  border-radius: 8px;
+  color: #666;
+}
+
+.empty i {
+  font-size: 2rem;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+
+</style>

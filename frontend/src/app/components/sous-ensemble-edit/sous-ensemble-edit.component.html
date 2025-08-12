@@ -1,0 +1,130 @@
+<div class="form-container">
+  <h3 class="form-title">Modifier Sous-Ensemble</h3>
+
+  <form [formGroup]="sousEnsembleForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading; else loading">
+
+    <div class="form-grid">
+      <!-- Engin -->
+      <div class="form-group">
+        <label>Engin</label>
+        <select formControlName="engin_id" [class.invalid]="sousEnsembleForm.get('engin_id')?.invalid">
+          <option value="">Sélectionner un engin</option>
+          <option *ngFor="let engin of engins" [value]="engin">{{ engin }}</option>
+        </select>
+        <small *ngIf="sousEnsembleForm.get('engin_id')?.invalid">Engin est requis</small>
+      </div>
+
+      <!-- Désignation -->
+      <div class="form-group">
+        <label>Désignation</label>
+        <input type="text" formControlName="designation" [class.invalid]="sousEnsembleForm.get('designation')?.invalid">
+        <small *ngIf="sousEnsembleForm.get('designation')?.invalid">Désignation est requise</small>
+      </div>
+
+      <!-- Type de sous-ensemble -->
+      <div class="form-group">
+        <label>Type de Sous-Ensemble</label>
+        <input type="text" formControlName="type_sous_ensemble">
+      </div>
+
+      <!-- Quantité installée -->
+      <div class="form-group">
+        <label>Quantité Installée</label>
+        <input type="number" formControlName="quantite_installee" min="0">
+      </div>
+
+      <!-- Relais disponibles -->
+      <div class="form-group">
+        <label>Relais Disponibles</label>
+        <input type="number" formControlName="sous_ensemble_relais_disponible" min="0">
+      </div>
+
+      <!-- En attente révision -->
+      <div class="form-group">
+        <label>En Attente Révision</label>
+        <input type="number" formControlName="sous_ensemble_en_attente_revision" min="0">
+      </div>
+
+      <!-- En cours révision -->
+      <div class="form-group">
+        <label>En Cours Révision</label>
+        <input type="number" formControlName="sous_ensemble_encours_revision" min="0">
+      </div>
+
+      <!-- Prix neuf -->
+      <div class="form-group">
+        <label>Prix Neuf (DH)</label>
+        <input type="number" formControlName="prix_sous_ensemble_neuf_DH" min="0" step="0.01">
+      </div>
+
+      <!-- Coût révision -->
+      <div class="form-group">
+        <label>Coût Révision (MAD)</label>
+        <input type="number" formControlName="cout_revision_MAD" min="0" step="0.01">
+      </div>
+
+      <!-- Durée révision -->
+      <div class="form-group">
+        <label>Durée Révision (jours)</label>
+        <input type="number" formControlName="duree_revision_jours" min="0">
+      </div>
+
+      <!-- Heures actuelles -->
+      <div class="form-group">
+        <label>Heures Marche Actuel</label>
+        <input type="number" formControlName="heures_marche_actuel" min="0">
+      </div>
+
+      <!-- Heures cible -->
+      <div class="form-group">
+        <label>Heures Marche Cible</label>
+        <input type="number" formControlName="heures_marche_cible" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>Heures Marche annee</label>
+        <input type="number" formControlName="heures_marche_annee" min="0">
+      </div>
+
+      <!-- Délai livraison -->
+      <div class="form-group">
+        <label>Délai Livraison (jours)</label>
+        <input type="text" formControlName="delai_livraison_apres_commande_jours">
+      </div>
+
+      <!-- Mode gestion -->
+      <div class="form-group">
+        <label>Mode Gestion</label>
+        <input type="text" formControlName="mode_gestion_actuel">
+      </div>
+
+      <!-- Fournisseur -->
+      <div class="form-group">
+        <label>Fournisseur</label>
+        <input type="text" formControlName="fournisseur">
+      </div>
+
+      <!-- Besoin annuel -->
+      <div class="form-group">
+        <label>Besoin Global Annuel</label>
+        <input type="number" formControlName="besoin_global_annuel" min="0">
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button type="submit" class="btn primary" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Enregistrement en cours...' : 'Enregistrer' }}
+      </button>
+      <button type="button" class="btn secondary" (click)="annuler()">Annuler</button>
+    </div>
+  </form>
+
+  <!-- Loading -->
+  <ng-template #loading>
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Chargement des données...</p>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h4 class="fw-bold text-secondary">Operations List</h4>
+  
+  <div class="mb-3 mt-3 d-flex justify-content-between">
+    <input type="text" class="form-control w-50" placeholder="Search operations..." 
+           [(ngModel)]="searchTerm" (input)="filterOperations()">
+    <button class="btn btn-info" routerLink="/operations/create">
+        <i class="fa fa-plus me-2"></i>Ajouter</button>
+  </div>
+  
+  
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Atelier</th>
+        <th>SE ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody class="small">
+      <tr *ngFor="let op of filteredOperations">
+        <td>{{ op.operation_id }}</td>
+        <td>{{ op.type_operation }}</td>
+        <td>{{ op.description }}</td>
+        <td>{{ op.atelier }}</td>
+        <td>{{ op.sous_ensemble_id }}</td>
+        <td class="d-flex gap-2 justify-content-center align-content-center">
+          <button class="btn btn-sm btn-warning" (click)="editOperation(op.operation_id)"><i class="fa fa-edit"></i></button>
+          <button class="btn btn-sm btn-danger" (click)="deleteOperation(op.operation_id)"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

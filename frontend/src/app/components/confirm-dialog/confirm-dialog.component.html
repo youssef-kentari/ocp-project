@@ -1,0 +1,21 @@
+<!-- confirm-dialog.component.html -->
+<div class="modal-header border-0 pb-0">
+  <h5 class="modal-title">{{ data.title }}</h5>
+  <button type="button" class="btn-close" (click)="onCancel()"></button>
+</div>
+
+<div class="modal-body pt-1">
+  <div class="d-flex align-items-center">
+    <div class="flex-shrink-0 me-3">
+      <i class="bi bi-exclamation-triangle-fill text-warning fs-3"></i>
+    </div>
+    <div class="flex-grow-1">
+      <p class="mb-0">{{ data.message }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer border-0 pt-0">
+  <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
+  <button type="button" class="btn btn-danger" (click)="onConfirm()">Confirm</button>
+</div>

@@ -1,0 +1,54 @@
+<div class="container mt-4">
+    <h4 class="mb-4 text-secondary"><strong>Planning des Révisions</strong></h4>
+
+    <div *ngIf="loading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+        </div>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+    </div>
+
+    <div *ngIf="!loading && !error">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Sous-ensemble</th>
+                        <th>Engin</th>
+                        <th>Date prévue</th>
+                        <th>Urgence</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of planning; index as i">
+                        <td data-label="Sous-ensemble">{{ item.sous_ensemble }}</td>
+                        <td data-label="Engin">{{ item.engin }}</td>
+                        <td data-label="Date prévue">{{ item.date_prevue | date:'dd/MM/yyyy' }}</td>
+                        <td data-label="Urgence" class="text-center">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="urgency-circle me-2" [title]="item.urgence"
+                                    [ngStyle]="{'background-color': getUrgencyColor(item.urgence)}">
+                                </span>
+                                <span class="d-none">{{ item.urgence }}</span>
+                            </div>
+                        </td>
+                        <td data-label="Actions">
+                            <button class="btn btn-outline-none btn-success rounded-circle py-2" (click)="navigateToAddIntervention()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="planning.length === 0" class="alert alert-info">
+            Aucune révision à planifier pour le moment.
+        </div>
+    </div>
+
+</div>

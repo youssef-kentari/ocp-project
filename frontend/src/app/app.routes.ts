@@ -1,0 +1,39 @@
+import { Routes } from '@angular/router';
+import { EnginListComponent } from './components/engin-list/engin-list.component';
+import { AddEnginComponent } from './components/add-engin/add-engin.component';
+import { SousEnsembleListComponent } from './components/sous-ensemble-list/sous-ensemble-list.component';
+import { AddSousEnsembleComponent } from './components/add-sous-ensemble/add-sous-ensemble.component';
+import { InterventionListComponent } from './components/intervention-list/intervention-list.component';
+import { InterventionStatsComponent } from './components/intervention-stats/intervention-stats.component';
+import { AddInterventionComponent } from './components/add-intervention/add-intervention.component';
+import { InterventionEditComponent } from './components/intervention-edit/intervention-edit.component';
+import { PowerBI } from './components/powerbi/powerbi.component';
+import { PlanningComponent } from './components/planing/planing.component';
+import { SousEnsembleEditComponent } from './components/sous-ensemble-edit/sous-ensemble-edit.component';
+import { EditEnginComponent } from './components/engin-edit/engin-edit.component';
+import { ResponsableListComponent } from './components/responsable-list/responsable-list.component';
+import { ResponsableDetailComponent } from './components/responsable-detail/responsable-detail.component';
+import { OperationListComponent } from './components/operation-list/operation-list.component';
+import { OperationFormComponent } from './components/operation-form/operation-form.component';
+
+export const routes: Routes = [
+  { path: '', redirectTo: 'engins', pathMatch: 'full' },
+  { path: 'engins', component: EnginListComponent },
+  { path: 'engin/add', component: AddEnginComponent },
+  { path: 'sous-ensembles', component: SousEnsembleListComponent },
+  { path: 'sous-ensemble/add', component: AddSousEnsembleComponent },
+  { path: 'interventions', component: InterventionListComponent },
+  { path: 'interventions/stats', component: InterventionStatsComponent },
+  { path: 'intervention/add', component: AddInterventionComponent },
+  { path: 'intervention/edit/:id', component: InterventionEditComponent },
+  { path: 'sous-ensemble/edit/:id', component: SousEnsembleEditComponent },
+  { path: 'engin/edit/:id', component: EditEnginComponent },
+  { path: 'programme-revision', component: PlanningComponent },
+  { path: 'responsables', component: ResponsableListComponent },
+  { path: 'responsables/:nom', component: ResponsableDetailComponent },
+  { path: 'add-intervention/:index', component: AddInterventionComponent },
+  { path: 'operations', component: OperationListComponent },
+  { path: 'operations/create', component: OperationFormComponent },
+  { path: 'operations/edit/:id', component: OperationFormComponent },
+  { path: 'reports', component: PowerBI }
+];

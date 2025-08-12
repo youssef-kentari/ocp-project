@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <h3 class="text-secondary">Tableau de bord OCP Database</h3>
+    
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <button class="nav-button" 
+                [class.active]="activeReport === 'revisions'"
+                (click)="showReport('revisions')">
+            Chaine de Révision
+        </button>
+        <button class="nav-button" 
+                [class.active]="activeReport === 'stock'"
+                (click)="showReport('stock')">
+            Gestion de Stock
+        </button>
+    </nav>
+    
+    <!-- Révisions Report -->
+    <div *ngIf="activeReport === 'revisions'" class="report-container">
+        <div class="powerbi-container">
+            <iframe title="ocp_database" 
+                    src="https://app.powerbi.com/reportEmbed?reportId=7b2360e0-6dd5-4771-86e8-4e264e24664a&autoAuth=true&ctid=10163a4d-fff6-4802-b752-d335485826ef" 
+                    frameborder="0" 
+                    allowFullScreen="true"></iframe>
+        </div>
+    </div>
+    
+    <!-- Stock Report -->
+    <div *ngIf="activeReport === 'stock'" class="report-container">
+        <div class="powerbi-container">
+            <iframe title="ocppfa" 
+                    src="https://app.powerbi.com/reportEmbed?reportId=684adeb6-90a2-44a3-b70f-6872b40db8b3&autoAuth=true&ctid=10163a4d-fff6-4802-b752-d335485826ef" 
+                    frameborder="0" 
+                    allowFullScreen="true"></iframe>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Dernière mise à jour: {{ lastUpdatedDate | date }} | © 2023 OCP Database</p>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+services:
+  mysql-server:
+    container_name: mysql-server
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '0000'
+      MYSQL_DATABASE: ocp_database
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ocp-network
+
+  ocp-backend:
+    container_name: ocp-backend
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql-server
+    networks:
+      - ocp-network
+
+  ocp-frontend:
+    container_name: ocp-frontend
+    build: ./frontend
+    environment:
+      NODE_ENV: production
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ocp-backend
+
+volumes:
+  db_data:
+
+networks:
+  ocp-network:

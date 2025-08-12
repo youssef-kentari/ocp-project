@@ -1,0 +1,22 @@
+<div *ngIf="loading">Chargement...</div>
+<div *ngIf="errorMessage" style="color:red">{{ errorMessage }}</div>
+
+<form *ngIf="!loading" [formGroup]="enginForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Designation:</label>
+    <input type="text" formControlName="designation" />
+  </div>
+  <div>
+    <label>Type Engin:</label>
+    <input type="text" formControlName="type_engin" />
+  </div>
+  <div>
+    <label>Modèle:</label>
+    <input type="text" formControlName="modele" />
+  </div>
+  <div>
+    <label>Date mise en service:</label>
+    <input type="date" formControlName="date_mise_en_service" />
+  </div>
+  <button type="submit" [disabled]="enginForm.invalid">Mettre à jour</button>
+</form>

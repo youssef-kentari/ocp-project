@@ -1,0 +1,111 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-7 col-md-9">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-0 py-3">
+          <h5 class="mb-0 text-secondary fw-bold">
+            <i class="bi bi-plus-circle me-2"></i>Ajouter une intervention
+          </h5>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="interventionForm" (ngSubmit)="onSubmit()" novalidate>
+
+            <!-- Opération -->
+            <div class="mb-3">
+              <label for="description" class="form-label">Opération <span class="text-danger">*</span></label>
+              <select id="description" formControlName="description" class="form-select"
+                [ngClass]="{ 'is-invalid': interventionForm.get('description')?.invalid && interventionForm.get('description')?.touched }" required>
+                <option value="" disabled selected>Sélectionnez une opération</option>
+                <option *ngFor="let d of descriptions" [value]="d">{{ d }}</option>
+              </select>
+              <div class="invalid-feedback">L'opération est requise</div>
+            </div>
+
+            <!-- Dates -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="date_planifiee" class="form-label">Date planifiée</label>
+                <input id="date_planifiee" type="date" formControlName="date_planifiee" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label for="date_livraison" class="form-label">Date livraison</label>
+                <input id="date_livraison" type="date" formControlName="date_livraison" class="form-control" />
+              </div>
+            </div>
+
+            <!-- Responsable et type -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="responsable" class="form-label">Responsable</label>
+                <select id="responsable" formControlName="responsable" class="form-select">
+                  <option value="">Sélectionnez un responsable</option>
+                  <option *ngFor="let r of responsables" [value]="r">{{ r }}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="type_intervention" class="form-label">Type d'intervention</label>
+                <select id="type_intervention" formControlName="type_intervention" class="form-select">
+                  <option value="">Sélectionnez un type</option>
+                  <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="mb-4">
+              <label for="notes" class="form-label">Notes</label>
+              <textarea id="notes" formControlName="notes" class="form-control" rows="3" placeholder="Ajoutez des notes..."></textarea>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex justify-content-end gap-2">
+              <button type="button" class="btn btn-light border" (click)="backTo()">
+                <i class="bi bi-x-lg me-2"></i>Annuler
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="interventionForm.invalid">
+                <i class="bi bi-check-lg me-2"></i>Enregistrer
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+    .card {
+  border-radius: 10px;
+}
+
+.card-header {
+  background-color: #ffffff !important;
+}
+
+.form-label {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-control,
+.form-select {
+  font-size: 0.92rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.15);
+}
+
+.btn {
+  font-size: 0.92rem;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+}
+
+</style>

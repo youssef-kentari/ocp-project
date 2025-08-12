@@ -1,0 +1,88 @@
+name: Build & Deploy Full Stack
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  terraform:
+    name: Provision Infra & Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Install Terraform & AWS CLI
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init & Apply
+        run: |
+          cd terraform
+          terraform init
+          terraform apply -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # Get Terraform Outputs (S3, CloudFront, EC2 IP)
+      - name: Get Terraform Outputs
+        id: tf
+        run: |
+          cd terraform
+          echo "S3_BUCKET=$(terraform output -raw s3_bucket_name)" >> $GITHUB_ENV
+          echo "CLOUDFRONT_ID=$(terraform output -raw cloudfront_distribution_id)" >> $GITHUB_ENV
+          echo "EC2_IP=$(terraform output -raw ec2_private_ip)" >> $GITHUB_ENV
+          echo "DB_HOST=$(terraform output -raw db_host)" >> $GITHUB_ENV
+
+      # Build Angular & Upload to S3
+      - name: Build Angular
+        run: |
+          cd frontend
+          npm install
+          npm run build --prod
+
+      - name: Upload Angular to S3
+        run: |
+          aws s3 sync ./frontend/dist/ s3://$S3_BUCKET --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id $CLOUDFRONT_ID \
+            --paths "/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # Build Backend Docker & Push to DockerHub
+      - name: Build Docker Backend
+        run: docker build -t ${{ secrets.DOCKER_USER }}/express-backend ./backend
+
+      - name: Push Docker Image
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+          docker push ${{ secrets.DOCKER_USER }}/express-backend:latest
+
+      - name: Add SSH Key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > backend-ec2.pem
+          chmod 600 backend-ec2.pem
+
+      # Deploy new Docker image on EC2 (via SSH)
+      - name: Update Backend on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i backend-ec2.pem ubuntu@$EC2_IP "
+            docker pull ${{ secrets.DOCKER_USER }}/express-backend:latest &&
+            docker stop backend || true &&
+            docker rm backend || true &&
+            docker run -d --name backend -p 80:3000 \
+              -e  DB_HOST=$DB_HOST \
+              -e DB_USER=admin \
+              -e DB_PASS=${{ secrets.DB_PASSWORD }} \
+              ${{ secrets.DOCKER_USER }}/express-backend:latest
+          "
+        env:
+          EC2_IP: ${{ env.EC2_IP }}

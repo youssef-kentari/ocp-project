@@ -1,0 +1,97 @@
+/* Conteneur principal avec marge et largeur max */
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titres */
+h2 {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+/* Labels */
+.form-label {
+  font-weight: 500;
+  color: #444;
+}
+
+/* Champs de saisie et selects */
+.form-control,
+.form-select,
+textarea.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+  outline: none;
+}
+
+/* Messages d’erreur (invalid-feedback) */
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Boutons */
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #0b5ed7;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #5a6268;
+}
+
+/* Boutons désactivés */
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Espace entre boutons */
+.d-flex.gap-2 > * {
+  flex: 1;
+}
+
+/* Spinner inside button */
+.spinner-border {
+  vertical-align: middle;
+}
+
+/* Texte des champs obligatoires */
+.text-danger {
+  font-weight: 700;
+}
