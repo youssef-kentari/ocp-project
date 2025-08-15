@@ -10,13 +10,12 @@ services:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - ocp-network
 
   ocp-backend:
     container_name: ocp-backend
-    build: ./backend
+    image: youssefkentari/ocp-backend:latest
     ports:
       - "3000:3000"
     depends_on:
@@ -26,7 +25,7 @@ services:
 
   ocp-frontend:
     container_name: ocp-frontend
-    build: ./frontend
+    image: youssefkentari/ocp-frontend:latest
     environment:
       NODE_ENV: production
     ports:
